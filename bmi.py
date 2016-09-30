@@ -4,6 +4,7 @@ w =input('请输入你的体重（单位为kg）')
 bmi = float(w)/(float(h)*float(h))
 #bmi =float(int(w))/(float(int(h)*float(int(h)))
 #float(raw_input("enter a float: "))
+print('bmi=',bmi)
 if bmi <18.5:
   print('过轻')
 elif bmi >= 18.5 and bmi < 25:
