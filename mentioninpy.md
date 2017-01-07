@@ -462,3 +462,211 @@ def fact_itsf(num,product):
 所以即使是把上面的函数改成了尾递归方式，也会导致栈溢出。
 
 汉诺塔问题要抽象成用位置参数来模拟搬运！！！！！！！！！！！！！！！
+
+
+### 高级特性
+一行代码能实现的功能，决不写五行代码
+
+* 切片：取一个list或tuple的部分元素
+  * 正数切片
+      ```py
+      比如一个list如下：
+
+      >>> L = ['Michael', 'Sarah', 'Tracy', 'Bob', 'Jack']
+
+      取出前三个元素
+      >>> L[0:3]   #c从索引[0]开始取，直到索引[3]为止，但不包括索引[3]
+      ['Michael', 'Sarah', 'Tracy']
+      ```
+
+  * 同样支持倒数切片
+      ```py
+      >>> L[-2:]
+      ['Bob', 'Jack']
+      >>> L[-2:-1]  #倒数第一个元素的索引是-1
+      ['Bob']
+      ```
+  * 前10个数，每两个取一个
+      ```py
+      >>> L[:10:2]
+      ```
+  * 所有数，每5个取一个
+      ```py
+      >>> L[::5]
+      [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95]
+      ```
+  * 什么也不写，复制一个list
+      ```py
+      >>> L[:]
+      [0, 1, 2, 3, ..., 99]
+      ```
+  * tuple也是一种list，也可用切片操作，但是操作的结果仍然是tuple
+      ```py
+      >>> (0, 1, 2, 3, 4, 5)[:3]
+      (0, 1, 2)
+      ```
+  * 字符串`'xxx'`也可以看成是一种list，每个元素就是一个字符，只是操作的结果仍然是字符串
+      ```py
+      >>> 'ABCDEFG'[:3]
+      'ABC'
+      >>> 'ABCDEFG'[::2]
+      'ACEG'
+      ```
+
+* 迭代（通过`for...in`完成）
+
+只要是可迭代对象，无论有无下标，都可以迭代。
+
+  * 比如dict就可以迭代
+    ```py
+    >>> d = {'a': 1, 'b': 2, 'c': 3}
+    >>> for key in d:
+    ...     print(key)
+    ...
+    a
+    c
+    b
+
+    !!!!!如果要迭代value，`for value in d.values()`
+    !!!!!如果同时迭代value和key，`for k,v in d.items()`
+
+    ```
+  * 迭代字符串
+    ```py
+    >>> for ch in 'ABC':
+    ...     print(ch)
+    ...
+    A
+    B
+    C
+    ```
+  * 如何判断一个对象是否是可迭代对象呢？？（通过collections模块的 **Iterable类型** 判断：）
+    ```py
+    >>> from collections import Iterable
+    >>> isinstance('abc',Iterable) # str是否可迭代
+    True
+    >>> isinstance(123, Iterable) # 整数是否可迭代
+    False
+    ```
+
+  * 同时迭代索引和元素本身（利用内置的`enumerate`函数可以把一个list变成 **索引-元素对**）
+    ```py
+    >>> for i,value in enumerate(['A','B','C']):
+    ...     print(i, value)
+    ...
+    0 A
+    1 B
+    2 C
+
+    这个for循环里，同时引用了两个变量。
+    >>> for x, y in [(1, 1), (2, 4), (3, 9)]:
+    ...     print(x, y)
+    ...
+    1 1
+    2 4
+    3 9
+    ```
+
+* 列表生成式（内置的一个强大的用来创建list的生成式）
+
+  * 生成list[1,2,3,4,5]可以用`list(range(1,11))`
+  * 生成`[1x1, 2x2, 3x3, ..., 10x10]`
+    ```py
+    利用循环：
+    L=[]
+    for x in range(1,11):
+        L.append(x*x)
+
+    嫌循环太麻烦？？那你很棒哦
+    使用列表生成式：
+    [x*x for x in range(1,11)]       #这个真的很聪明哇！！！！
+
+    ```
+  * 写列表生成式时，把要生成的元素`x*x`放在前面，后面跟`for`循环，就可以把list创建出来。
+
+  * `for`循环后面还可以 **加上if判断**
+    ```py
+    >>> [x*x for x in list(range(1,11)) if x %2 ==0]
+    [4,16,36,64,100]
+    ```
+  * 还可以使用两层循环，可以 **生成全排列**：
+    ```py
+    >>> [m+n for m in 'ABC' for n in 'DEF']
+    ['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
+    ```
+
+      * ？列出当前目录下所有文件和目录名，可通过一行代码实现
+      ```py
+      >>>import os
+      >>>[d for d in os.listdir('.')]  # os.listdir可以列出文件和目录
+      ```
+  * 利用迭代生成dict对应同样可以使用列表生成式
+    ```py
+    使用迭代：
+    >>> d={'x':'A','y':'B','z':'C'}
+    >>> for k,v in d.items():
+    ...    print(k,'=',v)
+    ...
+    y = B
+    x = A
+    z = C
+
+    使用列表生成式：
+    >>>d={'x':'A','y':'B','z':'C'}
+    >>>[k+ '=' +v for k,v in d.items()]
+    ['y=B', 'x=A', 'z=C']
+    ```
+  * 把一个list中的所有字符串变成小写
+    ```py
+    >>> L = ['Hello', 'World', 'IBM', 'Apple']
+    >>> [s.lower() for s in L]
+    ['hello','world','ibm','apple']
+    ```
+  * 练习：list中包含非字符串，添加if使列表生成式正确执行
+    ```py
+    L = ['Hello', 'World', 18, 'Apple', None]
+    print([s.lower() for s in L if isinstance(s,str) == True])
+    ```
+
+* 生成器（一边循环一边计算的机制）
+* 创建一个generator
+  * 注：generato生成的是算法，每次调用函数，就计算出下一个元素的值，直到计算到最后一个元素
+  * 把列表生成式的`[]`改成`()`
+    ```py
+    >>> L = [x * x for x in range(10)]
+    >>> L
+    [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+    >>> g = (x * x for x in range(10))
+    >>> g
+    <generator object <genexpr> at 0x1022ef630>
+
+    通过`next()`函数获得generator的下一个返回值
+    >>> next(g)
+    0
+    >>> next(g)
+    1
+    >>> next(g)
+    4
+    ```
+  * 函数定义中包含`yield`关键字（当包含yield时，函数就不再时一个普通的函数，而是一个generator）
+
+    * 定义一个斐波拉契数列
+      ```py
+      用函数表达：
+      def fib(max):
+          n,a,b=0,0,1
+          while n <max:
+              print(b)
+              a,b = b,a+b
+              n=n+1
+          return "done"
+
+      用包含yield的generator表达：
+      def fib(max):
+          n,a,b=0,0,1
+          while n <max:
+              yield b     # 把print(b)改成了yiled b
+              a,b = b,a+b
+              n=n+1
+          return "done"
+      ```
