@@ -648,7 +648,12 @@ def fact_itsf(num,product):
     >>> next(g)
     4
     ```
-  * 函数定义中包含`yield`关键字（当包含yield时，函数就不再时一个普通的函数，而是一个generator）
+
+  * 创建一个generator后基本上永远不会调用`next()`，而是通过`for`循环来迭代它
+  不需要关心`StopIteration`的错误
+  * 如果`for`循环无法实现，还可以使用函数来实现
+
+  * 函数定义中包含`yield`关键字（当包含yield时，函数就不再是一个普通的函数，而是一个generator）
 
     * 定义一个斐波拉契数列
       ```py
@@ -665,8 +670,89 @@ def fact_itsf(num,product):
       def fib(max):
           n,a,b=0,0,1
           while n <max:
-              yield b     # 把print(b)改成了yiled b
+              yield b     # 把print(b)改成了yield b
               a,b = b,a+b
               n=n+1
           return "done"
       ```
+
+    * 这里，最难理解的就是generator和函数的执行流程不一样。
+    函数是顺序执行，遇到return语句或者最后一行函数语句就返回。
+    而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，
+    再次执行时从上次返回的yield语句处继续执行。
+
+      * 定义一个generator，依次返回数字1，3，5
+      ```py
+      def odd():
+          print('step1')
+          yield 1
+          print('step2')
+          yield(3)
+          print('step3')
+          yield(5)
+      ```
+        * 调用该generator时，首先要生成一个generator对象，然后用`next()`函数不断获得下一个返回值：
+        ```py
+        >>> o = odd()    # odd不是普通函数，而是generator
+        >>> next(o)    # 执行过程中，遇到yield就中断，下次又继续执行
+        step 1
+        1
+        >>> next(o)
+        step 2
+        3
+        >>> next(o)
+        step 3
+        5
+        >>> next(o)      # 执行三次yield后，已经没有yield执行了，所以第四次调用next()就报错
+        Traceback (most recent call last):
+          File "<stdin>", line 1, in <module>
+        StopIteration
+        ```
+
+    * 回到fib()函数
+    ```Py
+    用包含yield的generator表达：
+    def fib(max):
+        n,a,b=0,0,1
+        while n <max:
+            yield b     # 把print(b)改成了yield b
+            a,b = b,a+b
+            n=n+1
+        return "done"
+    ```    
+      * 一般使用`for`循环来迭代
+      ```py
+      >>> for n in fib(6):
+      ...     print(n)
+      ...
+      1
+      1
+      2
+      3
+      5
+      8
+      ```
+      * 但是这样拿不到return的返回值，所以必须捕获`StopIteration`错误，返回值包含在其中的value中
+      ```py
+      >>> g = fib(6)
+      >>> while True:
+      ...     try:
+      ...         x = next(g)
+      ...         print('g:', x)
+      ...     except StopIteration as e:
+      ...         print('Generator return value:', e.value)
+      ...         break
+      ...
+      g: 1
+      g: 1
+      g: 2
+      g: 3
+      g: 5
+      g: 8
+      Generator return value: done
+      ```
+  * 这里真的很难懂啊qaq，在写杨辉三角的时候简直。。一筹莫展
+  * 扔两个链接
+    * [what is the use of the yield keyword in python?What does it do?](http://stackoverflow.com/questions/231767/what-is-the-function-of-the-yield-keyword/231855#231855)
+    * [python yield使用浅析](http://www.ibm.com/developerworks/cn/opensource/os-cn-python-yield/)
+    * []
