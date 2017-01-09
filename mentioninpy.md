@@ -1,7 +1,7 @@
 MENTION IN PYTHON
 ==
 
-### 第一个文本编辑器
+## *第一个文本编辑器*
 * #### 直接运行py文件（linux下）
   1. 在`.py`文件的第一行加上一个特殊的注释
       ```py
@@ -15,8 +15,8 @@ MENTION IN PYTHON
       ```
   3. 直接运行即可
 
-### python基础
-* 数据类型和变量
+## *python基础*
+#### 数据类型和变量
   * 整数
     1. 十六进制用`0x`前缀和0-9，a-f表示，例如`0xff00`
   * 浮点数
@@ -42,7 +42,9 @@ MENTION IN PYTHON
       ```
       * 余数运算 `%`
 
-* 字符串和编码 中国使用的是`GB2312`
+***
+
+#### 字符串和编码 中国使用的是`GB2312`
   * UNICODE
     1. 用两个字节表示一个字符。
     2. 但是如果文本基本是英文的话，用unicode编码比ASCII需要多一倍的存储空间。
@@ -90,8 +92,9 @@ MENTION IN PYTHON
         >>> '%.2f' % 3.1415926
         '3.14'
         ```
+***
 
-* 使用list和tuple
+#### 使用list和tuple
 
 区别： list是一种有序的集合，可以随时添加和删除其中的元素；tuple和list相似，
 但是tuple一旦初始化就不能修改
@@ -111,8 +114,8 @@ MENTION IN PYTHON
     3. tuple内含的list里面如果发生变化是允许的，tuple的所谓的“不变”是说，tuple的每个元素，
     指向永远不变
 
-
-* 条件判断
+***
+#### 条件判断
 
 哈哈哈哈计算机很强啊哈哈哈哈
   * if 条件判断
@@ -130,8 +133,9 @@ MENTION IN PYTHON
     1. 使用input读取用户的输入，注意`input()`返回的数据类型是`str`
        所以用`number=int(input('please input a numeber'))`
 
+***
 
-* 循环
+#### 循环
 
   * for...in循环（依次把list或tuple中的每个元素迭代出来）
 
@@ -150,7 +154,8 @@ MENTION IN PYTHON
   * while循环（只要条件满足，就不断循环）
       记得加上冒号！！
 
-* 使用dict和set（这个我第一遍的时候没有看懂）
+***
+#### 使用dict和set（这个我第一遍的时候没有看懂）
 都不能放入可变对象！！！！！！！！因为无法保证两个可变对象是否相等
 
   * dict（查找速度快，在内部计算出对应的存放数据的地址 key-value方式，
@@ -197,22 +202,25 @@ MENTION IN PYTHON
     >>> a.replace('a', 'A')
     'Abc'
     >>> a
+
     'abc'
     ```
     * 注：对于不变对象来说，调用对象自身的任意方法，也不会改变该对象自身的内容。相反，
     这些方法会创建新的对象并返回，这样，就保证了不可变对象本身永远是不可变的。
 
+## *函数*
 
-### 函数
 函数就是最基本的一种代码抽象的方式
 
-* 调用函数
+#### 调用函数
   * [Build-in Functions](https://docs.python.org/3/library/functions.html#abs)
   * 数据类型转换
     * `int()`函数把其他数据类型转换为整数
     * 可以给函数名赋给一个变量，相当于给这个函数起了一个别名
 
-* 定义函数（要使用`def`语句
+***
+
+#### 定义函数（要使用`def`语句
 注：要依次写出函数名、括号、括号中的参数和冒号`:`，在缩进块中编写函数体，函数的返回值用
 `return`语句返回
   * 执行到`return`时，函数就执行完毕
@@ -243,7 +251,9 @@ MENTION IN PYTHON
   * 返回多个值（其实就是返回一个tuple）
     * 导入`math`包：`import math`
 
-* 函数的参数
+***
+
+#### 函数的参数
 
   * 位置参数：`power(x,n)`
       ```py
@@ -293,7 +303,8 @@ MENTION IN PYTHON
             减少由于修改数据导致的错误。
 
   * 可变参数（传入的参数可变） 组装list或tuple
-####非关键字可变长参数（元组）
+
+  * 非关键字可变长参数（元组）：
 “非关键字”“可变长”顾名思义是允许在调用时传入多个“非关键字”参数，python会将这些多出来的参数放入一个元组中。
 
     * 如果不加*的话，输入的时候要先组装一个tuple或者list
@@ -308,7 +319,8 @@ MENTION IN PYTHON
 
 
   * 关键字参数  组装dict
-####关键字可变长参数（字典）
+
+  * 关键字可变长参数（字典）：
 “关键字”“可变长”顾名思义是允许在调用时传入多个“关键字”参数，python会将这些多出来的<参数名, 参数值>
 放入一个字典中。需要注意的是，关键字变量参数应该为函数定义的最后一个参数，带**
 
@@ -418,10 +430,9 @@ MENTION IN PYTHON
 
 [理解 Python 中的 `*args` 和 `**kwargs`](http://kodango.com/variable-arguments-in-python)
 
+***
 
-
-
-* 递归函数
+#### 递归函数
 
 在函数内部，可以调用其他函数，如果一个函数在内部调用自身本身，这个函数就是递归函数
 fact(n) = n! = 1 x 2 x 3 x ... x (n-1) x n = (n-1)! x n = fact(n-1) x n
@@ -464,10 +475,10 @@ def fact_itsf(num,product):
 汉诺塔问题要抽象成用位置参数来模拟搬运！！！！！！！！！！！！！！！
 
 
-### 高级特性
+## *高级特性*
 一行代码能实现的功能，决不写五行代码
 
-* 切片：取一个list或tuple的部分元素
+#### 切片：取一个list或tuple的部分元素
   * 正数切片
       ```py
       比如一个list如下：
@@ -512,8 +523,9 @@ def fact_itsf(num,product):
       >>> 'ABCDEFG'[::2]
       'ACEG'
       ```
+***
 
-* 迭代（通过`for...in`完成）
+#### 迭代（通过`for...in`完成）
 
 只要是可迭代对象，无论有无下标，都可以迭代。
 
@@ -567,7 +579,9 @@ def fact_itsf(num,product):
     3 9
     ```
 
-* 列表生成式（内置的一个强大的用来创建list的生成式）
+***
+
+#### 列表生成式（内置的一个强大的用来创建list的生成式）
 
   * 生成list[1,2,3,4,5]可以用`list(range(1,11))`
   * 生成`[1x1, 2x2, 3x3, ..., 10x10]`
@@ -628,7 +642,9 @@ def fact_itsf(num,product):
     print([s.lower() for s in L if isinstance(s,str) == True])
     ```
 
-* 生成器（一边循环一边计算的机制）
+***
+
+#### 生成器（一边循环一边计算的机制）
 * 创建一个generator
   * 注：generato生成的是算法，每次调用函数，就计算出下一个元素的值，直到计算到最后一个元素
   * 把列表生成式的`[]`改成`()`
@@ -755,4 +771,202 @@ def fact_itsf(num,product):
   * 扔两个链接
     * [what is the use of the yield keyword in python?What does it do?](http://stackoverflow.com/questions/231767/what-is-the-function-of-the-yield-keyword/231855#231855)
     * [python yield使用浅析](http://www.ibm.com/developerworks/cn/opensource/os-cn-python-yield/)
-    * []
+
+***
+
+#### 迭代器
+  * 定义：可以直接作用于`for`循环的对象统称为可迭代对象：`Iterable`
+      * 可以直接作用于`for`循环的数据类型有以下几种：
+        1. 集合数据类型：`list`,`tuple`,`dict`,`set`,`str`
+        2. generator ：包括生成器和带`yield`的generator function
+      * 使用`isinstance()`判断一个对象是否是`Iterable`对象：
+        ```py
+        >>> from collections import Iterable
+        >>> isinstance([], Iterable)
+        True
+        ```
+  * 定义：可以被`next()`函数调用并不断返回下一个值的对象称为迭代器
+      * 使用`isinstance()`判断一个对象是否是`Iterator`对象：
+        ```py
+        >>> from collections import Iterator
+        >>> isinstance((x for x in range(10)), Iterator)
+        True        
+        ```
+  * 注：生成器都是Iterator对象，但`list`,`dict`,`str`虽然是`Iterable`，却不是`Iterator`
+  * 黑科技：把Iterable变成Iterator，可以使用`iter()`函数：
+    ```py
+    >>> isinstance(iter([]), Iterator)
+    True
+    >>> isinstance(iter('abc'), Iterator)
+    True
+    ```
+  * 区别在于`Iterator`的计算是惰性的
+  * python的`for`循环本质上就是通过不断调用`next()`函数实现的，例如：
+    ```py
+
+
+    for x in [1,2,3,4,5]:
+        pass
+
+    实际上完全等价于：
+    # 首先获得iterator对象：
+    it = iter([1,2,3,4,5])
+    # 循环
+    while True:
+        try:
+            # 获得下一个值
+            x = next(it)\
+        except StopIteration:
+            # 遇到StopIteration就退出循环
+            break
+    ```
+
+
+
+## *函数式编程（Functional Programming）*
+通过把大段代码拆成函数，通过一层一层的函数调用，就可以把复杂任务分解成简单的任务
+这种分解可以称之为面向过程的程序设计
+
+  * 特点：允许把函数本身作为参数传入另一个函数，还允许返回一个函数
+
+#### 高阶函数
+* 变量可以指向函数
+    ```py
+    >>> f = abs
+    >>> f
+    <built-in function abs>
+    ```
+  * 注：此时可以通过该变量来调用这个函数：
+    ```py
+    >>> f = abs
+    >>> f(-10)
+    10    
+    ```
+* 函数名`abs`也可看成是变量，它指向一个可以计算绝对值的函数
+  * 如果把`abs`指向其他对象，会发生什么？
+    ```py
+    >>> abs = 10
+    >>> abs(-10)
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    TypeError: 'int' object is not callable    
+    ```
+    * 此时已经无法通过`abs(-10)`来调用该函数了。如果要恢复，必须重启python交互环境
+    * 注：由于abs函数实际上是定义在import builtins模块中的，所以要让修改abs变量的指向在其它模块也生效，要用`import builtins; builtins.abs = 10`。
+
+  * 传入函数
+    * 一个最简单的高阶函数：
+    ```py
+    def add(x, y, f):
+        return f(x) + f(y)    
+    当调用add(-5,6,abs)时，参数x,y,f分别接收-5,6,abs。
+    ```
+
+编写高阶函数就是让函数的参数能够接收别的函数
+
+
+* map/reduce
+[MapReduce: Simplified Data Processing on Large Clusters](https://research.google.com/archive/mapreduce.html)
+* 我们先看`map`。`map()`函数接收两个参数，一个是函数，一个是`Iterable`，map将传入的函数依次作用到序列的每个元素，并把结果作为新的`Iterator`返回。
+  ```py
+  def f(x):
+      return x*x
+  >>> r = map(f,[1,2,3,4,5])
+  >>> list(r)
+
+  ```
+
+* reduce
+
+`from functools import reduce`
+
+  必须同时接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，效果就是：
+  ```py
+  reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+  ```
+  * 例子：把[1,3,5,7,9]变换成整数`13579`
+    ```py
+    from functools import reduce
+    def fn(x,y):
+        return 10*x+y
+    reduce(fn,[1,3,5,7,9])
+    ```
+  * 例子：配合`map()`，写出把`str`转换为`int`的函数
+
+先跳过函数式编程吧，感觉有点复杂，花的时间有点太长了
+
+
+
+
+
+
+
+## *模块*
+
+设置顶层包名，只要顶层包名不与别人冲突，那么所有的模块都不会与别人冲突。
+
+注：每个包目录下面都会有一个`_init_.py`的文件，这个文件必须存在，就像`.git`一样。
+（这个文件可以是空文件也可以又python代码，因为它本身就是一个名字为`mycompany`的模块
+
+* 自己创建模块时注意不要和python自带的模块名称冲突，不然无法导入系统自带的sys模块
+
+#### 使用模块
+
+```py
+#!/usr/bin/env python3    #使文件直接在linux/mac上运行
+# -*- coding: utf-8 -*-   # 编码方式
+
+' a test module '    #表示模块的文档注释，任何模块代码的第一个字符串都被视为模块的文档注释
+
+__author__ = 'Michael Liao'   # 加入作者姓名
+
+import sys   # 导入sys模块，利用sys这个变量，就可以访问sys模块的所有功能。
+
+def test():
+    args = sys.argv  #argv变量，用list存储了命令行的所有参数
+    if len(args)==1:
+            print('Hello, world!')
+    elif len(args)==2:
+        print('Hello, %s!' % args[1])
+    else:
+        print('Too many arguments!')
+
+if __name__=='__main__':
+    test()
+```
+* 在命令行运行hello模块文件时，python解释器会把一个特殊变量`_name_`置为`_main_`
+如果在其它地方，if会失败。
+* 在交互环境下：
+    ```py
+    >>> import hello
+    >>> hello.test()
+
+    ```
+
+* 作用域
+有些函数和变量仅仅希望在模块内部使用，在python中，通过前缀`_`来实现的
+
+* 类似`_xxx`和`__xxx`这样的函数或变量就是非公开的，不应该被直接引用。
+  ```py
+  def _private_1(name):
+      return 'Hello, %s' % name
+
+  def _private_2(name):
+      return 'Hi, %s' % name
+
+  def greeting(name):
+      if len(name) > 3:
+          return _private_1(name)
+      else:
+          return _private_2(name)  
+  ```
+
+  * 我们在模块里公开greeting()函数，而把内部逻辑用private函数隐藏起来了，这样，调用greeting()
+  函数不用关心内部的private函数细节，这是一种有用的代码封装和抽象的方法。
+
+**外部不需要引用的函数全部定义成private，只有外部需要引用的函数才定义为public。**
+
+***
+
+#### 安装第三方模块
+通过pip包管理工具完成的
